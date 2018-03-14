@@ -7,9 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <h1>Bootstrap is connected...</h1>
+        <h1>Redux is connected...</h1>
       </div>
-    );
+    )
   }
 }
 
