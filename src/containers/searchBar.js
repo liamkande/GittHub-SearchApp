@@ -26,7 +26,6 @@ handleSubmit = (e) => {
   }
   else {
     this.props.fetchUser(term)
-    console.log(term);
     this.setState({ term:'' })
   }
 }
