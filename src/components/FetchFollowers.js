@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import Collapsible from './Collapsible'
+import Reset from 'react-icons/lib/md/replay'
+import Load from 'react-icons/lib/md/autorenew'
 
-class AppFetch extends Component {
-
+class FetchFollowers extends Component {
+//  Line 99 to 113 is goups in between curly braces because we're checking on
+//  !isLoading && contacts.length state before return data
   constructor(props){
-    super(props);
+    super(props)
     this.state = {
         isLoading: true,
         contacts: [],
-        number: 1
+        number: 0
     }
   }
 
   componentDidMount(){
     this.fetchData()
   }
+
   fetchData(number){
     number = this.state.number
       this.setState({
@@ -23,6 +27,8 @@ class AppFetch extends Component {
           number: ++number
       })
       const login = this.props.login
+      // Fetching the Followers API
+      // number represents the page number from the API response
       fetch(`https://api.github.com/users/${login}/followers?page=${number}`)
       .then(response => response.json())
       .then(parsedJSON => parsedJSON.map(user => (
@@ -44,6 +50,7 @@ class AppFetch extends Component {
       this.reset()
     }
   }
+
   reset(){
     this.setState({
         isLoading: true,
@@ -51,6 +58,7 @@ class AppFetch extends Component {
         number: 1
     })
     const login = this.props.login
+    // Resets the followers API to page 1
     fetch(`https://api.github.com/users/${login}/followers?page=1`)
     .then(response => response.json())
     .then(parsedJSON => parsedJSON.map(user => (
@@ -78,14 +86,15 @@ class AppFetch extends Component {
               <div className="col-12 ">
                 <h2>Followers Data<button className="btn btn-sm btn-danger float-right" onClick={(e) => {
                   this.fetchData()
-                }}>Load more</button>
+                }}>Load more <Load size={20}/></button>
                 <button className="btn btn-sm btn-success float-right" onClick={() => {
                   this.reset()
-                }}>reset</button>
+                }}><Reset size={20}/> reset</button>
                 </h2>
               </div>
             </div>
           </header>
+
           <div className={`content ${isLoading ? 'is-loading' : ''}`}>
               <div className="panel-group">
                   {
@@ -98,7 +107,7 @@ class AppFetch extends Component {
                                     aria-expanded="true"
                                     aria-controls="collapseOne"
                                     >
-                                <a className="float-right" href={profile}>@{name}</a>
+                                <a className="float-right" target="_blank" href={profile}>@{name} </a>
                             </button>
                           </Collapsible>
                       }) : null
@@ -112,4 +121,4 @@ class AppFetch extends Component {
     );
   }
 }
-export default AppFetch
+export default FetchFollowers

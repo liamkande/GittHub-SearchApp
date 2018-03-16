@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './App.css'
 
 import SearchBar from './containers/searchBar'
 import UserList from './containers/users_list'

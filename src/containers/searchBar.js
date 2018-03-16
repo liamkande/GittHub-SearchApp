@@ -7,12 +7,12 @@ import { fetchUser } from '../actions/index'
 class SearchBar extends Component {
   constructor(props) {
   super(props)
-  this.state = { term: ''}
+  this.state = { term: '' }
 
   this.onInputChange = this.onInputChange.bind(this)
   this.handleSubmit = this.handleSubmit.bind(this)
-
 }
+
 onInputChange(event) {
       this.setState({term: event.target.value})
     //  console.log(event.target.value)
@@ -25,7 +25,9 @@ handleSubmit = (e) => {
     alert('Please enter a valid username')
   }
   else {
+    //We need to go fetch the user data
     this.props.fetchUser(term)
+    //this clears the input after the Search
     this.setState({ term:'' })
   }
 }
@@ -48,8 +50,13 @@ handleSubmit = (e) => {
 }
 
 function mapDispatchToprops(dispatch) {
+  //this give us access to the function fetctUser here, originally created in the ActionCreator
   return bindActionCreators({ fetchUser }, dispatch)
 
 }
-
+// we're passing null as the 1rst argument here because whenever we are passing a function
+// that is suppose to dispatch to the props of our container it always goes in as the 2nd argument here!
+// usually the 1rst argument is for when we map state to props as well
+// so null is pretty much telling redux that we understand that redux is to maitain some state
+// but we dont need any state here.
 export default connect(null, mapDispatchToprops) (SearchBar)
