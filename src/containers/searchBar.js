@@ -15,14 +15,14 @@ class SearchBar extends Component {
 }
 onInputChange(event) {
       this.setState({term: event.target.value})
-      console.log(event.target.value)
+    //  console.log(event.target.value)
     }
 
 handleSubmit = (e) => {
   e.preventDefault()
   const term = this.state.term
   if(!term){
-    alert('Please enter a valid name')
+    alert('Please enter a valid username')
   }
   else {
     this.props.fetchUser(term)
@@ -31,7 +31,7 @@ handleSubmit = (e) => {
 }
   render() {
     return (
-        <form className="input-group mb-3" onSubmit={this.handleSubmit}>
+        <form className="input-group mb-3 mt-3" onSubmit={this.handleSubmit}>
           <input type="text"
                  value={this.state.term}
                  onChange={this.onInputChange}

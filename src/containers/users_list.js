@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import AppFetch from '../components/App'
 
  class UsersList extends Component {
    renderUser(props) {
+     let id = props.id
      return (
-       <tr key={props.id}>
+       <tr key={id}>
          <td>
-           <div className="card border-success mb-3">
-             <div className="card-header bg-transparent border-primary">
+           <div className="card border-secondary bg-light mb-3">
+             <div className="card-header bg-transparent border-secondary">
                  <a className="font-weight-bold" href={props.html_url}><button type="button" className="btn btn-light float-left text-info">@{props.login}</button></a>
-                  <button type="button" class="btn btn-secondary float-right" disabled>Repos <span className="badge badge-light">{props.public_repos}</span></button>
+                  <button type="button" className="btn btn-secondary float-right" disabled>Repos <span className="badge badge-light">{props.public_repos}</span></button>
              </div>
              <div className="card-body">
                  <div className="row">
                    <div className="text-success col-4">
-                     <img className="card-img-top" src={props.avatar_url} alt="Card image cap"/>
+                     <img className="card-img-top" src={props.avatar_url} alt="Card cap"/>
                    </div>
                    <div className="col-8">
                      <h5 className="card-title text-dark text-uppercase">{props.name}</h5>
@@ -22,16 +24,23 @@ import { connect } from 'react-redux'
                    </div>
                  </div>
              </div>
-            <div className="card-footer bg-transparent border-success">
-                <a className="btn btn-primary float-right" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                  Followers <span className="badge badge-light">{props.followers}</span>
-                </a>
-                <a className="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                  Following <span className="badge badge-light">{props.following}</span>
-                </a>
-              <div className="collapse" id="collapseExample">
+            <div className="card-footer bg-light border-secondary">
+              <div className="row">
+                <div className="col-12">
+                  <a className="btn btn-info float-right"
+                     data-toggle="collapse"
+                     href={`#${id}`}
+                     role="button"
+                     aria-expanded="false"
+                     aria-controls="collapseExample"
+                     >
+                    Followers <span className="badge badge-light">{props.followers}</span>
+                  </a>
+                </div>
+              </div>
+              <div className="collapse" id={id}>
                <div className="card card-body">
-                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                 <AppFetch login={props.login}/>
                </div>
               </div>
             </div>
@@ -46,7 +55,7 @@ import { connect } from 'react-redux'
       <table className="table">
         <thead>
           <tr>
-            <th>User handle</th>
+            <th>User Handle</th>
           </tr>
         </thead>
         <tbody>
